@@ -1,0 +1,7 @@
+---
+import { company } from '../data/site';
+const { inverse = false } = Astro.props;
+---
+<a href="/#anasayfa" class:list={['brand', { inverse }]} aria-label="Budak Lojistik ana sayfa">
+  {company.logo ? <img class="brand-image" src={company.logo} alt={company.name} width="515" height="164" /> : <><span class="brand-mark" aria-hidden="true"><svg width="38" height="38" viewBox="0 0 40 40" fill="none"><path d="M6 5h16c12 0 14 12 5 15 10 4 8 15-4 15H6V5Z" fill="currentColor"/><path d="M14 12h8c4 0 4 5 0 5h-8zm0 11h9c4 0 4 5 0 5h-9z" fill={inverse ? '#10243A' : 'white'}/><path d="m3 31 12-12" stroke="#F28C28" stroke-width="4"/></svg></span><span class="brand-type">BUDAK<span>LOJİSTİK</span></span></>}
+</a>

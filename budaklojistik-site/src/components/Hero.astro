@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+import { media } from '../data/site';
+---
+<section class="hero" id="anasayfa" aria-labelledby="hero-title">
+  <img class="hero-image" src={media.hero.src} alt={media.hero.alt} width="1800" height="1000" fetchpriority="high" decoding="async" />
+  <div class="hero-shade"></div>
+  <div class="container hero-content">
+    <p class="eyebrow light hero-enter"><span></span> GÜÇLÜ KOORDİNASYON. DOĞRU TAŞIMA.</p>
+    <h1 id="hero-title" class="hero-enter">Yükünüz güvenle<br/><em>yol alır.</em></h1>
+    <p class="hero-description hero-enter">Budak Lojistik – Konteyner, Damperli TIR<br class="desktop-break"/> ve Profesyonel Nakliye Organizasyonu</p>
+    <div class="hero-actions hero-enter"><a class="button button-orange" href="#hizmetlerimiz">Hizmetlerimizi İnceleyin<Icon name="arrow" size={19}/></a><a class="button button-outline" href="#iletisim">İletişime Geçin<Icon name="diagonal" size={19}/></a></div>
+  </div>
+  <div class="hero-bottom container"><a href="#hakkimizda" class="scroll-cue"><span class="scroll-line"></span> BİZİ YAKINDAN TANIYIN</a>{media.hero.placeholder && <span class="image-disclaimer">Geçici illüstrasyon · Firma fotoğrafı eklenecek</span>}</div>
+  <div class="hero-index" aria-hidden="true">01 <span>/</span> BUDAK LOJİSTİK</div>
+</section>
+<div class="strength-strip"><div class="container strength-grid"><div><Icon name="container"/><span>Yüke uygun<br/><strong>taşıma çözümleri</strong></span></div><div><Icon name="route"/><span>Planlı sevkiyat,<br/><strong>güçlü koordinasyon</strong></span></div><div><Icon name="chat"/><span>Her aşamada<br/><strong>doğrudan iletişim</strong></span></div><a href="#iletisim">Yükünüzü birlikte<br/><strong>planlayalım <Icon name="diagonal" size={19}/></strong></a></div></div>

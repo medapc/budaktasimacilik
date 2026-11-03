@@ -1,0 +1,5 @@
+---
+import { services } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section id="hizmetlerimiz" class="section services" aria-labelledby="services-title"><div class="container"><div class="section-heading reveal"><div><p class="eyebrow"><span></span> HİZMETLERİMİZ</p><h2 id="services-title">Her yük için<br/><span>doğru bir çözüm.</span></h2></div><p>Konteynerden endüstriyel yüklere, ihtiyacınıza uygun taşımacılık ve nakliye organizasyonu.</p></div><div class="services-grid">{services.map((service, index) => <article class="service-card reveal"><div class="service-card-top"><span class="service-icon"><Icon name={service.icon} size={35}/></span><span class="service-number">0{index + 1}</span></div><p class="service-category">{service.category}</p><h3>{service.title}</h3><p class="service-description">{service.description}</p><a href={`#iletisim`} aria-label={`${service.title} hakkında iletişime geçin`} class="service-link">Bilgi alın<Icon name="diagonal" size={20}/></a></article>)}</div><p class="services-note"><span></span> Yükünüzün türünü ve güzergâhını paylaşın, taşıma planını birlikte oluşturalım.</p></div></section>

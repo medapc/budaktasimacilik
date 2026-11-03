@@ -1,0 +1,17 @@
+---
+import Brand from './Brand.astro';
+import Icon from './Icon.astro';
+import { company, navigation } from '../data/site';
+const hrefFor = (href: string) => href.startsWith('#') && Astro.url.pathname !== '/' ? `/${href}` : href;
+const isCurrent = (href: string) => href.startsWith('/') && Astro.url.pathname.startsWith(href);
+---
+<div class="topbar"><div class="container flex items-center justify-between gap-4"><span class="flex items-center gap-2"><Icon name="pin" size={13}/> Dilovası / Kocaeli</span><span class="topbar-hours flex items-center gap-2"><Icon name="clock" size={13}/>{company.hours}</span><a href={`mailto:${company.emails[0].address}`}>{company.emails[0].address}</a></div></div>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <Brand />
+    <nav class="desktop-nav" aria-label="Ana menü">{navigation.map((link) => <a href={hrefFor(link.href)} aria-current={isCurrent(link.href) ? 'page' : undefined} data-nav-link>{link.label}</a>)}</nav>
+    <a class="header-call" href={`tel:${company.phoneHref}`}><Icon name="phone" size={18}/><span><small>MUHASEBE & OPERASYON</small>{company.phone}</span></a>
+    <button class="menu-toggle" type="button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Menüyü aç"><span></span><span></span></button>
+  </div>
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobil menü" hidden>{navigation.map((link) => <a href={hrefFor(link.href)} aria-current={isCurrent(link.href) ? 'page' : undefined} data-nav-link>{link.label}<Icon name="diagonal" size={18}/></a>)}<a href={`tel:${company.phoneHref}`} class="mobile-phone"><Icon name="phone" size={18}/>{company.phone}</a></nav>
+</header>

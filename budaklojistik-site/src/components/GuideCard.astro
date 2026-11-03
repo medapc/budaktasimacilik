@@ -1,0 +1,14 @@
+---
+import Icon from './Icon.astro';
+import { guideUrl, readMinutes, type GuideArticle } from '../data/articles';
+interface Props { article: GuideArticle; index?: number; }
+const { article, index = 0 } = Astro.props;
+---
+<article class="guide-card">
+  <div class="guide-card-top"><span class="guide-region"><Icon name="pin" size={14}/>{article.region}</span><span class="guide-index">0{index+1}</span></div>
+  <div class="guide-card-symbol" aria-hidden="true"><Icon name={article.icon} size={42}/><span></span></div>
+  <p class="guide-category">{article.category}</p>
+  <h3><a href={guideUrl(article.slug)}>{article.title}</a></h3>
+  <p class="guide-excerpt">{article.description}</p>
+  <div class="guide-card-bottom"><span>{readMinutes(article)} dk okuma</span><a href={guideUrl(article.slug)} aria-label={`${article.title} yazısını okuyun`}>Yazıyı okuyun<Icon name="diagonal" size={18}/></a></div>
+</article>

@@ -1,0 +1,10 @@
+---
+import { company, media } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section id="hakkimizda" class="section about" aria-labelledby="about-title">
+  <div class="container about-grid">
+    <div class="about-visual reveal"><div class="about-image-wrap"><img src={media.about.src} alt={media.about.alt} width="800" height="540" loading="lazy" decoding="async"/>{media.about.placeholder && <span class="placeholder-label">FİRMA FOTOĞRAFI EKLENECEK</span>}</div><div class="about-location"><span class="location-symbol"><Icon name="pin" size={30}/></span><span><small>MERKEZİMİZ</small><strong>Dilovası, Kocaeli</strong><span>Sanayinin kalbinden yola çıkıyoruz.</span></span></div><span class="vertical-label" aria-hidden="true">BUDAK LOJİSTİK / HAKKIMIZDA</span></div>
+    <div class="about-copy reveal"><p class="eyebrow"><span></span> BİZİ TANIYIN</p><h2 id="about-title">Yükünüzü anlıyoruz.<br/><span>Yolunu planlıyoruz.</span></h2>{company.about.map((paragraph) => <p class="body-copy">{paragraph}</p>)}<div class="about-points"><span><Icon name="check" size={18}/>Yüke özel planlama</span><span><Icon name="check" size={18}/>Çözüm odaklı yaklaşım</span><span><Icon name="check" size={18}/>Süreç koordinasyonu</span><span><Icon name="check" size={18}/>Açık ve doğrudan iletişim</span></div><a class="text-link" href="#iletisim">Taşıma ihtiyacınızı konuşalım<Icon name="diagonal" size={19}/></a></div>
+  </div>
+</section>

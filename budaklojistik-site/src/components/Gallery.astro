@@ -1,0 +1,45 @@
+---
+import { gallery } from '../data/site';
+import Icon from './Icon.astro';
+---
+<section id="galeri" class="section gallery-section" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div><p class="eyebrow"><span></span> GALERİ</p><h2 id="gallery-title">İşimizin <span>izinde.</span></h2></div>
+      <div><p>Sahadan fotoğraf ve videolarla taşımacılık faaliyetlerimize yakından bakın.</p></div>
+    </div>
+    <div class="gallery-grid">
+      {gallery.map((item, index) => (
+        <button type="button" class:list={['gallery-item', 'reveal', { 'gallery-video': item.type === 'video' }]}
+          data-gallery-index={index} data-type={item.type} data-src={item.src}
+          data-poster={item.thumbnail} data-alt={item.alt} data-title={item.title}
+          data-placeholder={item.placeholder} data-duration={item.duration}
+          aria-label={`${item.title} ${item.type === 'video' ? 'videosunu aç' : 'fotoğrafını büyüt'}`}>
+          <span class="gallery-image">
+            <img src={item.thumbnail} alt={item.alt} width="800" height="540" loading="lazy" decoding="async"/>
+            <span class="gallery-zoom"><Icon name={item.type === 'video' ? 'play' : 'zoom'} size={22}/></span>
+            <span class="gallery-media-label">{item.type === 'video' ? `VİDEO / ${item.duration}` : 'FOTOĞRAF'}</span>
+            {item.type === 'video' && <span class="gallery-play" aria-hidden="true"><Icon name="play" size={27}/></span>}
+          </span>
+          <span class="gallery-caption"><span>{item.title}</span><span aria-hidden="true">0{index+1}<Icon name="diagonal" size={16}/></span></span>
+        </button>
+      ))}
+    </div>
+    <p class="gallery-help">Fotoğrafı büyütmek veya videoları izlemek için görsele dokunun. Videolar sessizdir.</p>
+    <noscript><div class="gallery-notice"><p>Medya dosyalarını doğrudan açabilirsiniz:</p>{gallery.map(item => <a href={item.src} target="_blank" rel="noopener noreferrer">{item.title} ↗</a>)}</div></noscript>
+  </div>
+</section>
+<dialog class="lightbox" id="gallery-dialog" aria-labelledby="lightbox-title" aria-describedby="lightbox-note">
+  <div class="lightbox-content">
+    <div class="lightbox-top"><span>BUDAK LOJİSTİK / GALERİ</span><button type="button" class="lightbox-close" aria-label="Galeriyi kapat"><Icon name="close" size={26}/></button></div>
+    <div class="lightbox-stage">
+      <button type="button" class="lightbox-prev" aria-label="Önceki görsel veya video"><Icon name="chevron" size={28}/></button>
+      <img id="lightbox-image" src={gallery[0].src} alt={gallery[0].alt} width="1600" height="900"/>
+      <video id="lightbox-video" controls playsinline preload="none" hidden aria-label="" aria-describedby="lightbox-note">
+        Tarayıcınız video oynatmayı desteklemiyor. <a id="lightbox-video-download" href={gallery.find(item => item.type === 'video')?.src}>Videoyu doğrudan açın.</a>
+      </video>
+      <button type="button" class="lightbox-next" aria-label="Sonraki görsel veya video"><Icon name="chevron" size={28}/></button>
+    </div>
+    <div class="lightbox-bottom" aria-live="polite"><div><h3 id="lightbox-title">{gallery[0].title}</h3><p id="lightbox-note">Fotoğraf</p></div><span id="lightbox-counter">1 / {gallery.length}</span></div>
+  </div>
+</dialog>

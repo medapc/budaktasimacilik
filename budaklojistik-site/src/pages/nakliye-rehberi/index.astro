@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import Icon from '../../components/Icon.astro';
+import { articles, guideUrl } from '../../data/articles';
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const structuredData = [
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Nakliye Rehberi', url: absolute('/nakliye-rehberi/'), inLanguage: 'tr-TR', mainEntity: { '@type': 'ItemList', itemListElement: articles.map((article,index)=>({ '@type': 'ListItem', position: index+1, url: absolute(guideUrl(article.slug)), name: article.title })) } },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: absolute('/') }, { '@type': 'ListItem', position: 2, name: 'Nakliye Rehberi', item: absolute('/nakliye-rehberi/') }] },
+];
+---
+<Layout title="Kocaeli ve Gebze Nakliyat Rehberi | Budak Lojistik" description="Kocaeli, Gebze ve Dilovası için ticari nakliyat rehberi. Yük tanımı, nakliye teklifi hazırlığı ve konteyner sevkiyatı hakkında pratik yazılar." structuredData={structuredData}>
+  <Header/>
+  <main id="icerik">
+    <section class="guide-page-hero"><div class="container"><nav class="breadcrumbs" aria-label="Sayfa yolu"><a href="/">Ana sayfa</a><span aria-hidden="true">/</span><span aria-current="page">Nakliye Rehberi</span></nav><p class="eyebrow light"><span></span> BİLGİDEN PLANLAMAYA</p><h1>Nakliye <em>rehberi.</em></h1><p>Ticari yükünüzü tanımlayın, doğru soruları sorun ve sevkiyatınızı daha net bilgilerle planlayın.</p><div class="guide-topics"><span>Kocaeli</span><span>Gebze</span><span>Dilovası</span></div></div><span class="guide-hero-lines" aria-hidden="true"></span></section>
+    <section class="section guides-list" aria-labelledby="guide-list-title"><div class="container"><div class="guide-list-heading"><div><p class="eyebrow"><span></span> PRATİK BİLGİLER</p><h2 id="guide-list-title">Yükünüzü anlamak,<br/><span>planın ilk adımı.</span></h2></div><p>Her yazı farklı bir ihtiyaca odaklanır: taşıma çözümü seçmek, teklif için hazırlanmak veya konteyner teslimini koordine etmek.</p></div><div class="guide-grid">{articles.map((article,index)=><GuideCard article={article} index={index}/>)}</div><div class="guide-location-note"><Icon name="pin" size={23}/><p><strong>Dilovası / Kocaeli merkezimizden iletişim kurun.</strong><span>Taşıma talebinizi yük, güzergâh ve tarih bilgileriyle birlikte değerlendirelim.</span></p><a href="/#iletisim" class="text-link">Bize ulaşın<Icon name="diagonal" size={18}/></a></div></div></section>
+  </main>
+  <Footer/>
+</Layout>

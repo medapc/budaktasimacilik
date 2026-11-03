@@ -1,0 +1,34 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import Icon from '../../components/Icon.astro';
+import { articles, guideUrl, readMinutes, formatGuideDate, type GuideArticle } from '../../data/articles';
+import { company, media, whatsappUrl } from '../../data/site';
+export const getStaticPaths = (() => articles.map(article=>({params:{slug:article.slug},props:{article}}))) satisfies GetStaticPaths;
+interface Props { article: GuideArticle; }
+const { article } = Astro.props;
+const related = articles.filter(item=>item.slug!==article.slug);
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const url = absolute(guideUrl(article.slug));
+const structuredData = [
+  { '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#article`, headline: article.title, description: article.description, datePublished: `${article.published}T12:00:00+03:00`, inLanguage: 'tr-TR', mainEntityOfPage: { '@type': 'WebPage', '@id': url }, author: { '@type': 'Organization', name: company.name, url: absolute('/#hakkimizda') }, publisher: { '@id': absolute('/#business') }, image: [absolute(media.social)], articleSection: 'Nakliye Rehberi' },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Ana sayfa', item: absolute('/') }, { '@type': 'ListItem', position: 2, name: 'Nakliye Rehberi', item: absolute('/nakliye-rehberi/') }, { '@type': 'ListItem', position: 3, name: article.title, item: url }] },
+];
+---
+<Layout title={article.seoTitle} description={article.description} type="article" publishedTime={`${article.published}T12:00:00+03:00`} structuredData={structuredData}>
+  <Header/>
+  <main id="icerik">
+    <article>
+      <header class="guide-page-hero article-hero"><div class="container"><nav class="breadcrumbs" aria-label="Sayfa yolu"><a href="/">Ana sayfa</a><span aria-hidden="true">/</span><a href="/nakliye-rehberi/">Nakliye Rehberi</a><span aria-hidden="true">/</span><span aria-current="page">{article.region}</span></nav><p class="eyebrow light"><span></span> {article.category}</p><h1>{article.title}</h1><div class="article-meta"><span>{company.name}</span><span aria-hidden="true">/</span><time datetime={article.published}>{formatGuideDate(article.published)}</time><span aria-hidden="true">/</span><span>{readMinutes(article)} dk okuma</span></div></div><span class="guide-hero-lines" aria-hidden="true"></span></header>
+      <div class="container article-layout">
+        <aside class="article-sidebar" aria-label="Yazı gezinmesi ve iletişim"><div class="article-sidebar-inner"><p class="article-sidebar-label">BU YAZIDA</p><nav aria-label="Yazı içindekiler">{article.sections.map(section=><a href={`#${section.id}`}>{section.title}</a>)}<a href="#sik-sorulanlar">Sık sorulan sorular</a></nav><div class="article-sidebar-contact"><Icon name="chat" size={26}/><h2>Yükünüzü birlikte planlayalım.</h2><p>Yük ve güzergâh bilgilerinizi paylaşın.</p><a href={`tel:${company.phoneHref}`}>{company.phone}<Icon name="diagonal" size={17}/></a></div></div></aside>
+        <div class="article-body"><p class="article-intro">{article.introduction}</p>{article.sections.map(section=><section id={section.id} class="article-section"><h2>{section.title}</h2>{section.paragraphs.map(paragraph=><p>{paragraph}</p>)}{section.bullets&&<ul>{section.bullets.map(bullet=><li>{bullet}</li>)}</ul>}</section>)}<section id="sik-sorulanlar" class="article-section article-questions"><p class="eyebrow"><span></span> KISA YANITLAR</p><h2>Sık sorulan sorular</h2>{article.questions.map(item=><div><h3>{item.question}</h3><p>{item.answer}</p></div>)}</section><div class="article-next-step"><p class="eyebrow"><span></span> TALEBİNİZİ PAYLAŞIN</p><h2>Planı netleştirelim.</h2><p>Taşıma ihtiyacınızı yük türü, ölçüler, güzergâh ve tarihle birlikte iletin. Araç uygunluğunu ve sevkiyat kapsamını görüşelim.</p><div><a class="button button-orange" href={whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp ile yazın<Icon name="diagonal" size={18}/></a><a class="text-link" href="/#hizmetlerimiz">Hizmetlerimizi inceleyin<Icon name="arrow" size={18}/></a></div></div><a href="/nakliye-rehberi/" class="article-back"><span aria-hidden="true">←</span> Tüm yazılara dön</a></div>
+      </div>
+    </article>
+    <section class="section related-guides" aria-labelledby="related-title"><div class="container"><p class="eyebrow"><span></span> OKUMAYA DEVAM EDİN</p><h2 id="related-title">Bir sonraki <span>adım.</span></h2><div class="guide-grid related-grid">{related.map((item,index)=><GuideCard article={item} index={index}/>)}</div></div></section>
+  </main>
+  <Footer/>
+</Layout>

@@ -1,0 +1,11 @@
+---
+import { articles } from '../data/articles';
+import GuideCard from './GuideCard.astro';
+import Icon from './Icon.astro';
+---
+<section id="nakliye-rehberi" class="section guides-section" aria-labelledby="guides-title">
+  <div class="container">
+    <div class="section-heading reveal"><div><p class="eyebrow"><span></span> NAKLİYE REHBERİ</p><h2 id="guides-title">Doğru bilgiyle<br/><span>yola çıkın.</span></h2></div><div class="guide-heading-copy"><p>Kocaeli, Gebze ve Dilovası için ticari yük taşımacılığı, teklif hazırlığı ve konteyner sevkiyatına dair pratik bilgiler.</p><a href="/nakliye-rehberi/" class="text-link">Tüm yazıları inceleyin<Icon name="diagonal" size={18}/></a></div></div>
+    <div class="guide-grid">{articles.map((article,index)=><GuideCard article={article} index={index}/>)}</div>
+  </div>
+</section>
