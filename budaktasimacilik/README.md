@@ -72,11 +72,11 @@ Kapak görselleri `public/images/gallery/*-poster.webp` dosyalarıdır. Videolar
 Cloudflare hesabındaki **Workers & Pages → Create → Pages → Git deposunu bağla** üzerinden:
 
 - Framework: **Astro**
-- Proje kökü: Bu klasör (`budak-lojistik` üst klasörü depoya eklenirse root directory olarak `budak-lojistik` seçin)
+- Proje kökü: GitHub deposunda proje klasörü `budaktasimacilik` olarak tutuluyorsa Root directory alanına `budaktasimacilik` yazın. Proje dosyaları deponun köküne taşınırsa bu alanı boş bırakın.
 - Build command: **`npm run build`**
 - Build output directory: **`dist`**
 - Node sürümü: **24** (`NODE_VERSION=24` ortam değişkeni veya `.node-version`)
-- `SITE_URL`: Canonical site adresi. Varsayılanı `https://budaklojistik.com` olarak ayarlanmıştır. Önce geçici `pages.dev` adresinde yayınlayacaksanız Cloudflare ortam değişkeninde geçici adresi kullanın; özel alan adını bağladıktan sonra `https://budaklojistik.com` değerine geri alın.
+- `SITE_URL`: Canonical site adresi. Varsayılanı `https://budaktasimacilik.com` olarak ayarlanmıştır. Önce geçici `pages.dev` adresinde yayınlayacaksanız Cloudflare ortam değişkeninde geçici adresi kullanın; özel alan adını bağladıktan sonra `https://budaktasimacilik.com` değerine geri alın.
 
 `astro.config.mjs` içindeki `site` ayarı `SITE_URL` değerini okur. Canonical, Open Graph adresleri, JSON-LD, robots.txt ve sitemap aynı kökten üretilir. Cloudflare adapter, Functions veya Worker gerekli değildir. `public/_headers` statik güvenlik ve önbellek başlıklarını sağlar.
 
